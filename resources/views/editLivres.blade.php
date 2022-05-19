@@ -15,33 +15,34 @@
 @endif
 
 <div class="bg-gray-100 dark:bg-slate-800 relative rounded-lg p-8 sm:p-12 shadow-lg">
-<form action="/livres" method="POST">
+<form action="../components/editLivres" method="POST">
     <br>
     @csrf
+    @method('PATCH')
     <select name="auteur">
-        @foreach ($auteurs as $auteur) 
-        <option value="{{$auteur->id}}">{{$auteur->nom}} {{$auteur->prenom}}</option>
+        @foreach ($livres_auteurs as $livre_auteur) 
+        <option value="{{$livre_auteur->id}}">{{$livre_auteur->nom}} {{$livre_auteur->prenom}}</option>
         @endforeach
      </select>
      <br><br>  
     <div class="mb-6">
-    <label for="title">Entrez le titre de votre livre svp</label>
-    <input id="title" type="text" name="title" class="w-full rounded p-3 text-gray-800 dark:text-gray-50 dark:bg-slate-700
+    <label for="title">Entrer le titre de votre livre svp</label>
+    <input id="title" type="text" name="title" value="{{$livre_auteur->titre}}" class="w-full rounded p-3 text-gray-800 dark:text-gray-50 dark:bg-slate-700
     border-gray-500 dark:border-slate-600 outline-none focus-visible:shadow-none focus:border-primary"
     >
     </div>
     <br>
     <br>
     <div class="mb-6">
-    <label for="contenu">Entrez un extrait de votre livre svp</label>
-    <textarea id="contenu" name="contenu" cols="30" rows="5" class="w-full rounded p-3 text-gray-800 dark:text-gray-50
+    <label form="contenu">Entrer un extrait de votre livre svp</label>
+    <textarea id="contenu" name="contenu" cols="30" rows="10" class="w-full rounded p-3 text-gray-800 dark:text-gray-50
     dark:bg-slate-700 border-gray-500 dark:border-slate-600 outline-none focus-visible:shadow-none
-    focus:border-primary"></textarea>
+    focus:border-primary">{{$livre_auteur->extrait}}</textarea>
     </div>
 
     <br>
     <div>
-    <input type="submit" value="Créer votre livre" class="w-full text-gray-100 hover:text-gray-700
+    <input type="submit" value="Modifier votre livre" class="w-full text-gray-100 hover:text-gray-700
     bg-yellow-400 rounded border border-primary dark:border-slate-600 p-3 transition ease-in-out
     duration-500 hover:bg-yellow-300">
     </div>

@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 Route::get('/layouts/app', function () {
     return view('layouts/app');
 });
@@ -34,14 +34,15 @@ Route::get('/show', function () {
     return view('show');
 });
 
-Route::get('/livres1', [Livrescontroller::class,'getall'] )->name('livres1');
+Route::get('livres', [Livrescontroller::class,'getall'] )->name('livres');
 
-Route::post('/livres1', [Livrescontroller::class,'add'] );
+Route::post('livres', [Livrescontroller::class,'add'] );
 
-Route::get('/livres1/{id}', [Livrescontroller::class,'show'])->whereNumber('id');
+Route::get('delLivre/{id}', [Livrescontroller::class,'supprdialog']);
 
-Route::resource('livres', Livrescontroller1::class);
+Route::get('livres/{id}', [Livrescontroller::class,'show'])->whereNumber('id');
 
+Route::delete('livres/{id}', [Livrescontroller::class,'destroy']);
 
 
 
