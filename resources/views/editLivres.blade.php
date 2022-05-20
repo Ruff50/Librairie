@@ -1,4 +1,12 @@
-<h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Créer un livre</h1>
+@extends('layouts/app')
+
+
+
+
+@section('main')
+
+
+<h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Modifier un livre</h1>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -15,19 +23,21 @@
 @endif
 
 <div class="bg-gray-100 dark:bg-slate-800 relative rounded-lg p-8 sm:p-12 shadow-lg">
-<form action="../components/editLivres" method="POST">
+<form action="/livres/{{$livre->id}}" method="POST">
     <br>
     @csrf
-    @method('PATCH')
     <select name="auteur">
-        @foreach ($livres_auteurs as $livre_auteur) 
-        <option value="{{$livre_auteur->id}}">{{$livre_auteur->nom}} {{$livre_auteur->prenom}}</option>
+        @foreach ($auteurs as $auteur) 
+        
+        <option
+         @if ($livre->auteurs_id===$auteur->id) selected @endif
+          value="{{$auteur->id}}" >{{$auteur->nom}} {{$auteur->prenom}}</option>
         @endforeach
      </select>
      <br><br>  
     <div class="mb-6">
     <label for="title">Entrer le titre de votre livre svp</label>
-    <input id="title" type="text" name="title" value="{{$livre_auteur->titre}}" class="w-full rounded p-3 text-gray-800 dark:text-gray-50 dark:bg-slate-700
+    <input id="title" type="text" name="title" value="{{$livre->titre}}" class="w-full rounded p-3 text-gray-800 dark:text-gray-50 dark:bg-slate-700
     border-gray-500 dark:border-slate-600 outline-none focus-visible:shadow-none focus:border-primary"
     >
     </div>
@@ -37,7 +47,7 @@
     <label form="contenu">Entrer un extrait de votre livre svp</label>
     <textarea id="contenu" name="contenu" cols="30" rows="10" class="w-full rounded p-3 text-gray-800 dark:text-gray-50
     dark:bg-slate-700 border-gray-500 dark:border-slate-600 outline-none focus-visible:shadow-none
-    focus:border-primary">{{$livre_auteur->extrait}}</textarea>
+    focus:border-primary">{{$livre->extrait}}</textarea>
     </div>
 
     <br>
@@ -52,6 +62,6 @@
 <br>
 <br>
 
-
+@endsection
 
 

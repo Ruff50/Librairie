@@ -44,5 +44,8 @@ Route::get('livres/{id}', [Livrescontroller::class,'show'])->whereNumber('id');
 
 Route::delete('livres/{id}', [Livrescontroller::class,'destroy']);
 
+Route::get('auteurs/{id}', [Livrescontroller::class,'showlivresAut'])->whereNumber('id');
 
+Route::get('editLivres/{id}', [Livrescontroller::class,'edit'])->whereNumber('id');
 
+Route::post('livres/{id}', [Livrescontroller::class,'update']);

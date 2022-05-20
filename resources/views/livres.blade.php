@@ -39,13 +39,13 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center text-amber-900">
-                {{ $livre->auteur->prenom}} {{ $livre->auteur->nom}}
+                <a href="/auteurs/{{ $livre->auteurs_id}}">   {{ $livre->auteur->prenom}} {{ $livre->auteur->nom}}</a>
               </div>
 
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center justify-between text-amber-900 flex1 m-0">
-                <a href="../components/editLivres" style="color:darkgreen">Edit</a><a href="/delLivre/{{$livre->id}}" style="color:red">Delete</a>
+                <a href="/editLivres/{{$livre->id}}" style="color:darkgreen">Edit</a><a href="/delLivre/{{$livre->id}}" style="color:red">Delete</a>
               </div>
 
             </td>

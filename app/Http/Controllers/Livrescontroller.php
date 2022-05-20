@@ -57,9 +57,31 @@ class Livrescontroller extends Controller
     }
 
 
-    function edit($id)
+    public function edit($id)
     {
-        $book = Livres::find($id);
+        
+        $book = livres::find($id);
+        $auteurs= Auteurs::all();
+        return view('editLivres', [
+            'livre' => $book,
+            'auteurs' => $auteurs
+
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'contenu' => 'required',
+           ]);
+        
+        $book = livres::find($id);   
+        $book->titre = $request->title;
+        $book->extrait = $request->contenu;
+        $book->auteurs_id = $request->auteur;
+        $book->save();
+        return redirect()->route('livres')->with('status', 'le livre a bien été modifié !');
     }
 
     function supprdialog($id)
@@ -77,5 +99,19 @@ class Livrescontroller extends Controller
         return redirect()->route('livres')->with('status', 'Le livre a bien été supprimé!');
     }
     //return $this->livres[$id] ?? 'erreur'
+
+
+    public function showlivresAut($id)
+    {
+        $books = livres::where('auteurs_id', $id)->get();
+        $auteurs = Auteurs::find($id);
+        
+        return view('auteurs', [
+            'livres' => $books,
+            'auteurs'=> $auteurs,
+        ]);
+
+    }
+        
 
 };
