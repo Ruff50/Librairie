@@ -9,7 +9,7 @@
 </head>
 <body class="w-full flex flex-col justify-between">
 @include('layouts/header') 
-<main class="h-screen">
+<main class="h-full">
    @yield('main')  
 </main>   
 @include('layouts/footer')

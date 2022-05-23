@@ -30,20 +30,8 @@
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
 <h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Créer un livre</h1>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-@if (session('status'))
-    <div class="text-3xl text-left font-bold text-green-600 mt-20 mb-10">
-        {{ session('status') }}
-    </div>
-@endif
+
+
 
 <div class="bg-gray-100 dark:bg-slate-800 relative rounded-lg p-8 sm:p-12 shadow-lg">
 <form action="/livres" method="POST">

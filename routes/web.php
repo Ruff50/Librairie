@@ -3,6 +3,8 @@
 use App\Http\Controllers\Livrescontroller;
 use App\Http\Controllers\Livrescontroller1;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-Route::get('/layouts/app', function () {
+
+/*Route::get('/layouts/app', function () {
     return view('layouts/app');
 });
 Route::get('/index', function () {
@@ -32,20 +35,25 @@ Route::get('/edit', function () {
 });
 Route::get('/show', function () {
     return view('show');
-});
+});*/
 
-Route::get('livres', [Livrescontroller::class,'getall'] )->name('livres');
+Route::get('livres', [Livrescontroller::class, 'getall'])->name('livres');
 
-Route::post('livres', [Livrescontroller::class,'add'] );
+Route::post('livres', [Livrescontroller::class, 'add']);
 
-Route::get('delLivre/{id}', [Livrescontroller::class,'supprdialog']);
+Route::get('delLivre/{id}', [Livrescontroller::class, 'supprdialog'])->whereNumber('id');
 
-Route::get('livres/{id}', [Livrescontroller::class,'show'])->whereNumber('id');
+Route::get('livres/{id}', [Livrescontroller::class, 'show'])->whereNumber('id');
 
-Route::delete('livres/{id}', [Livrescontroller::class,'destroy']);
+Route::delete('livres/{id}', [Livrescontroller::class, 'destroy'])->whereNumber('id')->name('supprimer');
 
-Route::get('auteurs/{id}', [Livrescontroller::class,'showlivresAut'])->whereNumber('id');
+Route::get('auteurs/{id}', [Livrescontroller::class, 'showlivresAut'])->whereNumber('id');
 
-Route::get('editLivres/{id}', [Livrescontroller::class,'edit'])->whereNumber('id');
+Route::get('editLivres/{id}', [Livrescontroller::class, 'edit'])
+->whereNumber('id');
 
-Route::post('livres/{id}', [Livrescontroller::class,'update']);
+Route::post('livres/{id}', [Livrescontroller::class, 'update'])
+->name('maj');
+/*Route::resource('livres',Livrescontroller::class)->missing(function (Request $request) {
+    return Redirect::route('livres');});*/
+

@@ -22,8 +22,8 @@
     </div>
 @endif
 
-<div class="bg-gray-100 dark:bg-slate-800 relative rounded-lg p-8 sm:p-12 shadow-lg">
-<form action="/livres/{{$livre->id}}" method="POST">
+<div class="mb-20 bg-gray-100 dark:bg-slate-800 relative rounded-lg p-8 sm:p-12 shadow-lg">
+<form action="{{route('maj',$livre->id)}}" method="POST">
     <br>
     @csrf
     <select name="auteur">
@@ -57,11 +57,6 @@
     duration-500 hover:bg-yellow-300">
     </div>
 </form>
-<br>
-<br>
-<br>
-<br>
-
 @endsection
 
 

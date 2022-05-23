@@ -59,44 +59,66 @@ class Livrescontroller extends Controller
 
     public function edit($id)
     {
-        
         $book = livres::find($id);
-        $auteurs= Auteurs::all();
+        $auteurs = Auteurs::all();
+
+        if (isset($book)) {
+
         return view('editLivres', [
             'livre' => $book,
             'auteurs' => $auteurs
-
         ]);
+        } else {
+        return redirect()->route('livres'); 
     }
 
+}
     public function update(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|max:255',
             'contenu' => 'required',
-           ]);
-        
-        $book = livres::find($id);   
+        ]);
+
+        $book = livres::find($id);
+        if (isset($book)) {
         $book->titre = $request->title;
         $book->extrait = $request->contenu;
         $book->auteurs_id = $request->auteur;
         $book->save();
-        return redirect()->route('livres')->with('status', 'le livre a bien été modifié !');
+        return redirect()->route('livres')->with('status', 'le livre a bien été modifié !'); }
+        else {
+            return redirect()->route('livres');   
+        }
     }
 
     function supprdialog($id)
     {
         $livre = livres::find($id);
+        if (isset($livre)) {
         return view('delLivre', [
             'livre' => $livre
         ]);
+    } else {
+        return redirect()->route('livres');   
+    }
     }
 
 
-   public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        livres::find($id)->delete();
-        return redirect()->route('livres')->with('status', 'Le livre a bien été supprimé!');
+        $input = $request->input();
+        if (isset($input)){
+        if (isset($request->submit)) {
+            livres::find($id)->delete();
+            return redirect()->route('livres')->with('status', 'Le livre a bien été supprimé!');
+        } else {
+            return redirect()->route('livres')->with('status', 'opération annulée');
+        }
+    }
+    else{
+        return redirect()->route('livres');     
+    }
     }
     //return $this->livres[$id] ?? 'erreur'
 
@@ -105,13 +127,13 @@ class Livrescontroller extends Controller
     {
         $books = livres::where('auteurs_id', $id)->get();
         $auteurs = Auteurs::find($id);
-        
+        if (isset($auteurs)) {
         return view('auteurs', [
             'livres' => $books,
-            'auteurs'=> $auteurs,
+            'auteurs' => $auteurs,
         ]);
-
+    } else {
+        return redirect()->route('livres');    
     }
-        
-
+    }
 };
