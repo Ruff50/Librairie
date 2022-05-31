@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\Livrescontroller;
 use App\Http\Controllers\Livrescontroller1;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,9 @@ use Illuminate\Support\Facades\Redirect;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-});*/
+});
 
 /*Route::get('/layouts/app', function () {
     return view('layouts/app');
@@ -33,27 +34,38 @@ Route::get('/create', function () {
 Route::get('/edit', function () {
     return view('edit');
 });
-Route::get('/show', function () {
+Route::get('/show', function () 
     return view('show');
 });*/
 
-Route::get('livres', [Livrescontroller::class, 'getall'])->name('livres');
+Route::middleware(['auth'])->group(function () {
 
 Route::post('livres', [Livrescontroller::class, 'add']);
 
 Route::get('delLivre/{id}', [Livrescontroller::class, 'supprdialog'])->whereNumber('id');
 
-Route::get('livres/{id}', [Livrescontroller::class, 'show'])->whereNumber('id');
-
 Route::delete('livres/{id}', [Livrescontroller::class, 'destroy'])->whereNumber('id')->name('supprimer');
-
-Route::get('auteurs/{id}', [Livrescontroller::class, 'showlivresAut'])->whereNumber('id');
 
 Route::get('editLivres/{id}', [Livrescontroller::class, 'edit'])
 ->whereNumber('id');
 
 Route::post('livres/{id}', [Livrescontroller::class, 'update'])
 ->name('maj');
+});
+
+Route::get('livres', [Livrescontroller::class, 'getall'])->name('livres');
+Route::get('livres/{id}', [Livrescontroller::class, 'show'])->whereNumber('id');
+Route::get('auteurs/{id}', [Livrescontroller::class, 'showlivresAut'])->whereNumber('id');
+
+Route::get('register', [Authcontroller::class, 'registerForm']);
+
+Route::post('register', [Authcontroller::class, 'registration']);
+
+Route::get('login', [Authcontroller::class, 'logged'])->name('login');
+
+Route::post('login', [Authcontroller::class, 'login']);
+
+Route::get('signout', [AuthController::class, 'logout'])->name('signout');
 /*Route::resource('livres',Livrescontroller::class)->missing(function (Request $request) {
     return Redirect::route('livres');});*/
 
