@@ -12,13 +12,29 @@
       <div
           class="w-full p-6 m-auto bg-white border-t border-purple-600 rounded shadow-lg shadow-purple-800/50 lg:max-w-md">
           <h1 class="text-3xl font-semibold text-center text-purple-700">LOGO</h1>
-  
-          <form class="mt-6" action="/login" method="POST">
+          @if(session('Echec'))
+          <div class="text-xl text-left font-bold text-red-600 mt-20 mb-10">
+              {{session('Echec')}}
+          </div>
+          @endif
+
+          @if($errors->any())
+          <div class="text-red-600 text-xl text-left font-semibold">
+              <ul>
+                  @foreach ($errors->all() as $err)
+                      <li>{{$err}}</li>
+                  @endforeach
+              </ul>
+          </div>
+          @endif
+          <form class="mt-6" action="{{route('login.action')}}" method="POST">
             @csrf
             <div>
                   <label for="email" class="block text-sm text-gray-800">Email</label>
                   <input type="email" name="email"
-                      class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                      class="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                      value="{{old('email')}}"
+                   >
               </div>
               <div class="mt-4">
                   <div>
@@ -34,7 +50,7 @@
                       </button>
                   </div>
           </form>
-          <p class="mt-8 text-xs font-light text-center text-gray-700"> Don't have an account? <a href="#"
+          <p class="mt-8 text-xs font-light text-center text-gray-700"> Don't have an account? <a href="{{route('register')}}"
                   class="font-medium text-purple-600 hover:underline">Sign up</a></p>
       </div>
   </div>

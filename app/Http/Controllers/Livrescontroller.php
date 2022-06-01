@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\livres;
 use App\Models\Auteurs;
+use App\Models\Roles;
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class Livrescontroller extends Controller
 {
@@ -13,14 +15,20 @@ class Livrescontroller extends Controller
     {
         $book =  livres::with('auteur')->get();
         $auteurs = Auteurs::all();
+        $users=User::with('roles')->get();
+       
+       
+        
+       
         //  $livres = livres::all();
         //  $auteurs = DB::select('select * from auteurs');
-        //dd($Book);
+        // dd($users);
         return view(
             'livres',
             [
                 'livres' => $book,
-                'auteurs' => $auteurs
+                'auteurs' => $auteurs,
+                'utils'=>$users
             ]
         );
     }

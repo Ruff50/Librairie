@@ -51,19 +51,20 @@ Route::get('editLivres/{id}', [Livrescontroller::class, 'edit'])
 
 Route::post('livres/{id}', [Livrescontroller::class, 'update'])
 ->name('maj');
+
 });
 
 Route::get('livres', [Livrescontroller::class, 'getall'])->name('livres');
 Route::get('livres/{id}', [Livrescontroller::class, 'show'])->whereNumber('id');
 Route::get('auteurs/{id}', [Livrescontroller::class, 'showlivresAut'])->whereNumber('id');
 
-Route::get('register', [Authcontroller::class, 'registerForm']);
+Route::get('register', [Authcontroller::class, 'register'])->name('register');
 
-Route::post('register', [Authcontroller::class, 'registration']);
+Route::post('register', [Authcontroller::class, 'register_action'])->name('register.action');
 
-Route::get('login', [Authcontroller::class, 'logged'])->name('login');
+Route::get('login', [Authcontroller::class, 'login'])->name('login');
 
-Route::post('login', [Authcontroller::class, 'login']);
+Route::post('login', [Authcontroller::class, 'login_action'])->name('login.action');
 
 Route::get('signout', [AuthController::class, 'logout'])->name('signout');
 /*Route::resource('livres',Livrescontroller::class)->missing(function (Request $request) {

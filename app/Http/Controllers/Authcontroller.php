@@ -6,76 +6,53 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+
 
 class AuthController extends Controller
 {
-    public function registerForm()
+    public function register()
     {
         return view('register');
     }
 
-    public function registration(Request $request)
+    public function register_action(Request $request)
     {
         $input = $request->input();
         //dd($input);
         $validate = $request->validate([
+            'name' =>'required',
             'email' => 'required|unique:users,email|max:255',
             'password' => 'required',
         ]);
 
         $user = new User();
+        $user->name=$validate['name'];
         $user->email = $validate['email'];
         $user->password = Hash::make($validate['password']);
         $user->save();
-        return redirect()->Route('livres');
+        return redirect()->route('login')->with('status','Registration succes.Please Login!');
     }
-
-    public function login (request $request) {
-
-        $validated = $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $user = User::where('email' ,'=', $validated['email'])
-            ->first();
-
-            if (
-                isset($user) && Hash::check($validated['password'], $user->password)
-            ) {
-                session(['user' => $user]);
-                return redirect()->route('livres');
-
-            } else {
-                return redirect()->route('login');
-            }
-    }
-    public function authenticate(Request $request)
-    {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-   
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials, $remember = true)) {
-            $request->session()->regenerate();
-            return redirect()->intended('livres');
-                     
-        }
-        //dd($request);
-        return view('welcome');
-    }
-
-
-
-
-    public function logged()
+    public function login()
     {
         return view('login');
     }
-
+    public function login_action(Request $request) 
+    {
+            $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            ]);
+            $user = User::where('email' ,'=', $request['email'])
+            ->first();
+            //$roles=User::with('roles')->get()->where('name' ,'=', $user->name);
+          
+            if (Auth::attempt(['email'=>$request->email, 'password'=>$request->password])){
+            $request->session()->regenerate();
+            session(['user' => $user]);
+            return redirect()->intended('livres');
+            }
+       return redirect()->route('login')->with('Echec','Wrong username or password!');      
+    }
     public function logout(Request $request)
 {
     Auth::logout();
@@ -86,4 +63,5 @@ class AuthController extends Controller
  
     return redirect('/');
 }
+
 }

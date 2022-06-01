@@ -1,3 +1,4 @@
+
 @extends('layouts/app')
 
 
@@ -22,6 +23,22 @@
         @endforeach
     </ul>
 </div>
+@endif
+@if (null!==(Auth::user()))
+
+
+<div class="text-2xl text-left text-amber-900 mt-20 mb-10">Welcome <b>{{Auth::user()->name}}</b></div>
+<p>Liste des roles :</p>
+
+@foreach ($utils as $util)
+@if ($util->name===Auth::user()->name)
+@foreach ($util->roles as $role)
+{{$role->rolename}} <br>
+@endforeach
+
+@endif
+<br>
+@endforeach
 @endif
     <table class="min-w-full mb-14">
       <thead>
@@ -56,10 +73,11 @@
 
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              @auth  
               <div class="flex items-center justify-between text-amber-900 flex1 m-0">
                 <a href="/editLivres/{{$livre->id}}" style="color:darkgreen">Mettre à jour</a><a href="/delLivre/{{$livre->id}}" style="color:red">Supprimer</a>
               </div>
- 
+              @endauth
             </td>
         </tr>
         @endforeach 

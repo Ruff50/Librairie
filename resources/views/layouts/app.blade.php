@@ -8,6 +8,7 @@
     <title>Librairie</title>
 </head>
 <body class="w-full flex flex-col justify-between">
+
 @include('layouts/header') 
 <main class="h-full">
    @yield('main')  
