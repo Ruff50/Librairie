@@ -1,0 +1,3 @@
+setEnv ENVIRONNEMENT_TYPE "développement"
+setEnv DB_USER "sc2lgvu9627"
+SetEnv DB_PASSWORD "AFCPE-DWWM#2022-SUD-RUN"
