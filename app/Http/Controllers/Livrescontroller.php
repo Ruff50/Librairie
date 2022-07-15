@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\livres;
+use App\Models\Livres;
 use App\Models\Auteurs;
 use App\Models\Roles;
 use App\Models\User;
@@ -13,7 +13,7 @@ class Livrescontroller extends Controller
 {
     function getall()
     {
-        $book =  livres::with('auteur')->get();
+        $book =  Livres::with('auteur')->get();
         $auteurs = Auteurs::all();
         $users=User::with('roles')->get();
        
@@ -34,7 +34,7 @@ class Livrescontroller extends Controller
     }
     function show($id)
     {
-        $livre = livres::find($id);
+        $livre = Livres::find($id);
         if (isset($livre)) {
             return view('livre', [
                 'livre' => $livre,
@@ -56,7 +56,7 @@ class Livrescontroller extends Controller
         ]);
 
 
-        $livre = new livres();
+        $livre = new Livres();
         $livre->titre = $request->title;
         $livre->extrait = $request->contenu;
         $livre->auteurs_id = $request->auteur;
@@ -67,7 +67,7 @@ class Livrescontroller extends Controller
 
     public function edit($id)
     {
-        $book = livres::find($id);
+        $book = Livres::find($id);
         $auteurs = Auteurs::all();
 
         if (isset($book)) {
@@ -88,7 +88,7 @@ class Livrescontroller extends Controller
             'contenu' => 'required',
         ]);
 
-        $book = livres::find($id);
+        $book = Livres::find($id);
         if (isset($book)) {
         $book->titre = $request->title;
         $book->extrait = $request->contenu;
@@ -102,7 +102,7 @@ class Livrescontroller extends Controller
 
     function supprdialog($id)
     {
-        $livre = livres::find($id);
+        $livre = Livres::find($id);
         if (isset($livre)) {
         return view('delLivre', [
             'livre' => $livre
@@ -133,7 +133,7 @@ class Livrescontroller extends Controller
 
     public function showlivresAut($id)
     {
-        $books = livres::where('auteurs_id', $id)->get();
+        $books = Livres::where('auteurs_id', $id)->get();
         $auteurs = Auteurs::find($id);
         if (isset($auteurs)) {
         return view('auteurs', [

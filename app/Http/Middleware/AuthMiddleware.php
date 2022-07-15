@@ -24,7 +24,7 @@ class AuthMiddleware
         if($request->session()->has('user')){
           $data = Auth::user()->name;
           $utils=User::with('roles')->get()->where('name' ,'=', $data);
-       
+       //dd($utils);
           foreach ($utils as $util) {
 
           foreach ($util->roles as $role) {
@@ -32,7 +32,7 @@ class AuthMiddleware
           if ($role->rolename ==='ADMIN'){ 
                
         return $next($request);
-      }else {return redirect()->route('livres')->with('status', "vous n'avez pas le statut administrateur !");}  
+      }else {return redirect()->route('livres')->with('status', "vous n'avez pas les droits d'accès du statut administrateur !");}  
     } } 
      } else{
        return redirect()->route('/');
