@@ -1,13 +1,9 @@
 
-@extends('layouts/app')
+<x-doctype/>
+
+<x-header/>
 
 
-
-
-@section('main')
-
-
-@include('components/addLivres')
 
     <h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Liste des livres</h1>
     @if (session('status'))
@@ -84,7 +80,7 @@
     </tbody>
   </table>   
 
-
+<x-footer/>
     
-@endsection
+
 

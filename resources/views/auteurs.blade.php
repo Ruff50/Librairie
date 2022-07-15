@@ -1,10 +1,4 @@
-@extends('layouts/app')
-
-
-
-
-@section('main')
-
+<x-doctype/>
 
     <h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Liste des livres par auteur</h1>
     <h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">{{$auteurs->prenom}} {{$auteurs->nom}}</h1>
@@ -34,5 +28,4 @@
 
 
     
-@endsection
 

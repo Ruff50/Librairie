@@ -1,9 +1,9 @@
-@extends('layouts/app')
+<x-doctype/>
 
 
 
 
-@section('main')
+
 
 
 <h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Supprimer un livre</h1>
@@ -27,4 +27,3 @@
    </div>     
 </form>
 
-@endsection

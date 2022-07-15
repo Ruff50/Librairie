@@ -16,7 +16,7 @@ class Livrescontroller extends Controller
         $book =  Livres::with('auteur')->get();
         $auteurs = Auteurs::all();
         $users=User::with('roles')->get();
-       
+      
        
         
        

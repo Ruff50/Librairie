@@ -1,9 +1,9 @@
-@extends('layouts/app')
+<x-doctype/>
 
 
 
 
-@section('main')
+
 
 
 <h1 class="text-3xl text-center font-bold text-gray-900 mt-20 mb-10">Modifier un livre</h1>
@@ -57,6 +57,6 @@
     duration-500 hover:bg-yellow-300">
     </div>
 </form>
-@endsection
+
 
 
