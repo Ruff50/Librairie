@@ -29,6 +29,7 @@ class Livrescontroller extends Controller
                 'livres' => $book,
                 'auteurs' => $auteurs,
                 'utils'=>$users
+                
             ]
         );
     }
@@ -38,6 +39,7 @@ class Livrescontroller extends Controller
         if (isset($livre)) {
             return view('livre', [
                 'livre' => $livre,
+                'test'=>"essai"
 
             ]);
         } else {
